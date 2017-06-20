@@ -11,7 +11,6 @@ function analyzeBrightnesses(buffer, done) {
   var bucketsForStdDevsOverMean = {};
   var variance;
   var stddev;
-  var brightEnoughPoints = [];
 
   Jimp.read(buffer, analyzeImage);
 

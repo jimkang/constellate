@@ -1,3 +1,5 @@
+/* global process */
+
 var demakeImage = require('../demake-image');
 var analyzeBrightnesses = require('../analyze-brightnesses');
 // var base64 = require('node-base64-image');
@@ -58,7 +60,6 @@ function makeStars(report) {
   var stdDevsOver = Object.keys(report.bucketsForStdDevsOverMean)
     .sort(compareIntStrings);
   for (var i = 0; i < stdDevsOver.length; ++i) {
-    debugger;
     brightest = brightest.concat(report.bucketsForStdDevsOverMean[stdDevsOver[i]]);
     if (brightest.length > 10) {
       break;
@@ -71,7 +72,7 @@ function makeStars(report) {
   var scaledBrightest = brightest.map(scaleStarPointToOriginal);
   console.log(scaledBrightest);
 
-  var starBitmap = makeStarBitmap(
+  makeStarBitmap(
     scaledBrightest, originalWidth, originalHeight, sb(writeStarImage, logError)
   );
 

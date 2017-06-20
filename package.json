@@ -21,9 +21,12 @@
     "tape": "^4.6.0"
   },
   "dependencies": {
+    "accessor": "^1.1.1",
     "async": "^0.9.0",
     "call-next-tick": "^1.1.2",
+    "d3-shape": "^1.2.0",
     "jimp": "^0.2.28",
+    "lodash.curry": "^4.1.1",
     "lodash.pluck": "^3.1.2",
     "pureimage": "0.0.21",
     "standard-bail": "^2.0.1",
