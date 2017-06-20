@@ -1,0 +1,32 @@
+{
+  "name": "constellate",
+  "version": "1.0.0",
+  "description": "Finds new constellations!",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jimkang/constellate.git"
+  },
+  "keywords": [],
+  "author": "Jim Kang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jimkang/constellate/issues"
+  },
+  "homepage": "https://github.com/jimkang/constellate",
+  "devDependencies": {
+    "tape": "^4.6.0"
+  },
+  "dependencies": {
+    "async": "^0.9.0",
+    "call-next-tick": "^1.1.2",
+    "jimp": "^0.2.28",
+    "lodash.pluck": "^3.1.2",
+    "pureimage": "0.0.21",
+    "standard-bail": "^2.0.1",
+    "twit": "^1.1.20"
+  }
+}
