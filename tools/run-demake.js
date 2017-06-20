@@ -3,6 +3,7 @@ var analyzeBrightnesses = require('../analyze-brightnesses');
 // var base64 = require('node-base64-image');
 var request = require('request');
 var fs = require('fs');
+var makeStarBitmap = require('../make-star-bitmap');
 
 var sb = require('standard-bail')({
   log: console.log
@@ -14,6 +15,10 @@ if (process.argv.length < 3) {
 }
 
 var url = process.argv[2];
+var originalBuffer;
+var originalWidth;
+var originalHeight;
+var filename;
 
 var reqOpts = {
   method: 'GET',
@@ -24,14 +29,18 @@ var reqOpts = {
 request(reqOpts, sb(runDemake, logError));
 
 function runDemake(res, body) {
+  originalBuffer = body;
   var demakeOpts = {
-    buffer: body
+    buffer: originalBuffer
   };
   demakeImage(demakeOpts, sb(writeDemadeImage, logError));
 }
 
-function writeDemadeImage(demadeBuffer) {
-  var filename = url.replace(/[\/:]/g, '') + '.png';
+function writeDemadeImage(demadeBuffer, width, height) {
+  originalWidth = width;
+  originalHeight = height;
+
+  filename = url.replace(/[\/:]/g, '') + '.png';
   fs.writeFileSync(filename, demadeBuffer);
   console.log('Wrote', filename);
 
@@ -58,6 +67,24 @@ function makeStars(report) {
 
   console.log('brightest', brightest);
   asciiMap(brightest, report.width, report.height);
+
+  var scaledBrightest = brightest.map(scaleStarPointToOriginal);
+  console.log(scaledBrightest);
+
+  var starBitmap = makeStarBitmap(
+    scaledBrightest, originalWidth, originalHeight, sb(writeStarImage, logError)
+  );
+
+  function writeStarImage(bitmapBuffer) {
+    fs.writeFileSync('stars-' + filename, bitmapBuffer);
+  }
+
+  function scaleStarPointToOriginal(point) {
+    return {
+      x: (point.x + 0.5) / report.width * originalWidth,
+      y: (point.y + 0.5) / report.width * originalHeight
+    };
+  }
 }
 
 function compareIntStrings(a, b) {

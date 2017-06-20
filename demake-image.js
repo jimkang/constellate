@@ -47,7 +47,11 @@ function demakeImage(opts, done) {
 
       image.scaleToFit(scaleDownSize, scaleDownSize, Jimp.RESIZE_NEAREST_NEIGHBOR);
       // image.scaleToFit(scaleUpSize, scaleUpSize, Jimp.RESIZE_NEAREST_NEIGHBOR);
-      image.getBuffer(Jimp.MIME_PNG, done);
+      image.getBuffer(Jimp.MIME_PNG, passBuffer);
+
+      function passBuffer(error, buffer) {
+        done(error, buffer, width, height);
+      }
     }
   }
 }
