@@ -66,7 +66,7 @@ function makeStars(report) {
     }
   }
 
-  console.log('brightest', brightest);
+  // console.log('brightest', brightest);
   asciiMap(brightest, report.width, report.height);
 
   var scaledBrightest = brightest.map(scaleStarPointToOriginal);
